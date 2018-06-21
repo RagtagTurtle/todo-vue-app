@@ -7,6 +7,7 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
   <script src="index.js" defer></script>
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <div id="vue-app">
@@ -20,13 +21,15 @@
 <template id="home-page">
   <div class="vue-component">
 
-    <input v-model="task_3">
-
     <h2>To DO:</h2>
+    <h4>Total number of tasks: {{ numberOfTasks() }}</h4>
+    <h4>Incompleted Tasks: {{ numberOfIncompleteTasks() }}</h4>
 
     <ul>
-      <li v-for="task in tasks", v-on:click="markComplete(task)">{{ task.text }}</li>
+      <li v-for="task in tasks" v-on:click="toggleCompleted(task)" v-bind:class="{strike:task.completed}">{{ task.text }}</li>
     </ul>
+
+    <button v-on:click="deleteCompleted()">Delete Completed Tasks</button>
 
     <h3>New Task</h3>
     <div>
